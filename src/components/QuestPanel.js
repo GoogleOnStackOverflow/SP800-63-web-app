@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Panel, PanelGroup, Pager } from 'react-bootstrap';
-import { QUEST_TYPE_SINGLE, QUEST_TYPE_MULTI, QUEST_TYPE_TEXT } from '../questionPool';
+import { QUEST_TYPE_SINGLE, QUEST_TYPE_MULTI } from '../rules/index';
 
 const optionIsChosen = (status , questId, optId) => {
   if(status[questId] === undefined)

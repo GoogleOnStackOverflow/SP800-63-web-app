@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import QuestionGroup from './containers/QuestionGroup';
-import { xALSelectQuestGroup } from './questionPool';
+import { xALSelectQuestGroup } from './rules/selectingQuestionPool';
 import ProgressWindow from './containers/ProgressWindow';
 import FlowTab from './components/FlowTab';
 

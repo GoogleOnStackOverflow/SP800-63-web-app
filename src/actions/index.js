@@ -1,5 +1,6 @@
 export const OPTION_ON_CLICK = "OPTION_ON_CLICK";
 export const MULTI_ON_CLICK = "MULTI_ON_CLICK";
+export const TEXT_ON_CHANGE = "TEXT_ON_CHANGE";
 
 export const handleOptionOnClick = optionObj => {
 	return {

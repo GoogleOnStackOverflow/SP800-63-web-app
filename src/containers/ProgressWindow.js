@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import AL_Bar from '../components/AL_Bar';
-import { selectXALs } from '../questionPool';
+import { selectXALs } from '../rules/selectingQuestionPool';
 
 const mapStateToProps = (state, ownProps) => {
   return {

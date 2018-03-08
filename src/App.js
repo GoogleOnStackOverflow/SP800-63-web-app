@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { PageHeader, Jumbotron , Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import QuestionGroup from './containers/QuestionGroup';
 import { xALSelectQuestGroup } from './questionPool';
+import ProgressWindow from './containers/ProgressWindow';
 
 class App extends Component {
   render() {
@@ -14,16 +15,7 @@ class App extends Component {
             <p>blablabla</p>
           </Col>
           <Col xs={12} md={8}>
-            <PageHeader>
-              Example page header <small>Subtext for header</small>
-            </PageHeader>
-            <Jumbotron class=".fixed-top">
-              <h1>Hello, world!</h1>
-              <p>
-                This is a simple hero unit, a simple jumbotron-style component for calling
-                extra attention to featured content or information.
-              </p>
-            </Jumbotron>
+            <ProgressWindow requirementsArr={[{},{},{}]} requirementStatusArr={[{},{},{}]}/>
             <QuestionGroup questGroupObjArr={xALSelectQuestGroup}/>
           </Col>
         </Row>

@@ -331,11 +331,11 @@ export const xALSelectQuestGroup = [
 
 export const selectXALs = (status) => {
 	var ial = 0, aal = 0, fal = 0;
-	if(status['0-0']===0) {
+	if(status['0-0'] === 0) {
 		ial = status['10-0']+1;
 		aal = status['10-1']+1;
 		fal = status['10-2'];
-	} else {
+	} else if (status['0-0'] === 1){
 		if(status['1-0']===1) ial = 1;
 		if(status['2-0']===1) ial = 1;
 
@@ -388,5 +388,5 @@ export const selectXALs = (status) => {
 	if(ial >= 2 && aal === 1) aal = ial;
 	if(ial >= 2 && fal !== 0) fal = ial;
 
-	return [ial, aal ,fal];
+	return ial === 0 ? [NaN, NaN, NaN] : [ial, aal ,fal];
 };

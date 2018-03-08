@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import QuestGroup from '../components/QuestPanel';
-import { handleOptionOnClick, handlePreviousOnClick, handleNextOnClick, handleStartOverOnClick } from '../actions';
+import { handleOptionOnClick, handleMultiOnClick, handlePreviousOnClick, handleNextOnClick, handleStartOverOnClick } from '../actions';
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -21,6 +21,9 @@ const mapDispatchToProps = dispatch => {
 	return {
 		optionOnClick: optionObj => {
 			dispatch(handleOptionOnClick(optionObj));
+		},
+		multiOnClick: optionObj => {
+			dispatch(handleMultiOnClick(optionObj));
 		},
 		previousOnClick: () => {
 			dispatch(handlePreviousOnClick());

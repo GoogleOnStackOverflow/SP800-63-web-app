@@ -1,8 +1,16 @@
 export const OPTION_ON_CLICK = "OPTION_ON_CLICK";
+export const MULTI_ON_CLICK = "MULTI_ON_CLICK";
 
 export const handleOptionOnClick = optionObj => {
 	return {
 		type: OPTION_ON_CLICK,
+		optionObj
+	}
+}
+
+export const handleMultiOnClick = optionObj => {
+	return {
+		type: MULTI_ON_CLICK,
 		optionObj
 	}
 }

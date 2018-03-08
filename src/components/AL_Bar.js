@@ -12,7 +12,7 @@ const getProgressNow = (requirementStatus, requirements) => {
     count += boolArr[i]? 1 : 0;
 
   if(boolArr.length === 0) return 0;
-  return count/boolArr.length;
+  return (count/boolArr.length)*100;
 }
 
 const BarToolTip = (name) => {

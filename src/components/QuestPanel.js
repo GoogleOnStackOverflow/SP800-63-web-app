@@ -6,10 +6,10 @@ import { QUEST_TYPE_SINGLE, QUEST_TYPE_MULTI, QUEST_TYPE_TEXT } from '../questio
 const optionIsChosen = (status , questId, optId) => {
   if(status[questId] === undefined)
     return false;
-  if(status[questId] === optId)
-    return true;
-
-  return status[questId].indexOf(optId) !== -1;
+  if(Array.isArray(status[questId]))
+    return status[questId].indexOf(optId) !== -1;
+  
+  return status[questId] === optId;
 }
 
 const OptionPanel = ({optionObj, optionOnClick, isChosen}) => {

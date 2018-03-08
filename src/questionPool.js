@@ -169,7 +169,7 @@ export const xALSelectQuestGroup = [
 			[
 				['Yes','Let me select assurance levels manually'],
 				['No','Please help me select assurance levels']
-			],QUEST_TYPE_MULTI)
+			])
 		], 
 		(status) => {
 			return status['0-0']===0?10:1;
@@ -208,7 +208,7 @@ export const xALSelectQuestGroup = [
 	questionGroup(3, 'Risk Impact Estimate', 'To decide what xALs should a service take, we need to know the risk impacts to an agency providing the service.', 
 		riskQuestArr,
 		(status) => {
-			for(var i=0; i<6; i++)
+			for(var i=2; i<6; i++)
 				if(status[`3-${i}`]>0) return 5;
 			return 4;
 		}
@@ -267,7 +267,12 @@ export const xALSelectQuestGroup = [
 			])
 		], 
 		(status) => {
-			return status['7-0']===0?8:-1;
+			if(status['7-0']===0) {
+				for(var i=2; i<6; i++)
+					if(status[`3-${i}`]>0) return -1;
+				return 8;
+			} else 
+				return -1;
 		}
 	),
 	

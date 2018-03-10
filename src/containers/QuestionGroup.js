@@ -4,11 +4,13 @@ import { handleOptionOnClick, handleMultiOnClick, handlePreviousOnClick, handleN
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		questGroupObj: ownProps.questGroupObjArr[state.questSequence[state.questSequence.length-1]],
+		id: ownProps.id,
+		questGroupObj: ownProps.questGroupObjArr[state.questSequence[ownProps.id]===undefined?0:state.questSequence[ownProps.id][state.questSequence[ownProps.id].length-1]],
 		chosenStatus: state.optionStatus,
-		havePrevious: !(state.questSequence.length === 1),
+		havePrevious: state.questSequence[ownProps.id]===undefined? false : !(state.questSequence[ownProps.id].length === 1),
 		enableNext: (questGroupObj) => {
 			for(var i=0; i<questGroupObj.questions.length; i++){
+				if(questGroupObj.questions[i].active(state.optionStatus))
 				if(state.optionStatus[questGroupObj.questions[i].id] === undefined)
 					return false;
 			}
@@ -25,14 +27,14 @@ const mapDispatchToProps = dispatch => {
 		multiOnClick: optionObj => {
 			dispatch(handleMultiOnClick(optionObj));
 		},
-		previousOnClick: () => {
-			dispatch(handlePreviousOnClick());
+		previousOnClick: (id) => {
+			dispatch(handlePreviousOnClick(id));
 		},
-		nextOnClick: next => {
-			dispatch(handleNextOnClick(next));
+		nextOnClick: (id, next) => {
+			dispatch(handleNextOnClick(id, next));
 		},
-		startOverOnClick: () => {
-			dispatch(handleStartOverOnClick());
+		startOverOnClick: (id) => {
+			dispatch(handleStartOverOnClick(id));
 		}
 	}
 }

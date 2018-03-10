@@ -61,7 +61,7 @@ QuestPanel.propTypes = {
 }
 
 const QuestGroup = ({
-  questGroupObj, optionOnClick, multiOnClick, previousOnClick, nextOnClick, 
+  id, questGroupObj, optionOnClick, multiOnClick, previousOnClick, nextOnClick, 
   startOverOnClick, chosenStatus, havePrevious, enableNext}) => 
 {
   if(questGroupObj === undefined)
@@ -74,12 +74,12 @@ const QuestGroup = ({
         <Pager>
           
           <Pager.Item onClick={()=>{
-            startOverOnClick()}}>
+            startOverOnClick(id)}}>
             Start Over
           </Pager.Item>{' '}
           
           <Pager.Item onClick={()=>{
-            previousOnClick()}}>
+            previousOnClick(id)}}>
             Previous
           </Pager.Item>
 
@@ -95,33 +95,35 @@ const QuestGroup = ({
     	  <Panel.Body>{questGroupObj.describtion}</Panel.Body>
         <Panel.Body>
           {questGroupObj.questions.map(question => {
-            switch(question.type) {
-              case QUEST_TYPE_SINGLE:
-                return (<QuestPanel key={question.id} 
-                  questObj={question} 
-                  optionOnClick={optionOnClick} 
-                  chosenStatus={chosenStatus}/>
-                );
-              case QUEST_TYPE_MULTI:
-                return (<QuestPanel key={question.id} 
-                  questObj={question} 
-                  optionOnClick={multiOnClick} 
-                  chosenStatus={chosenStatus}/>
-                );
-              default:
-                return <div/>;
+            if(question.active(chosenStatus))
+              switch(question.type) {
+                case QUEST_TYPE_SINGLE:
+                  return (<QuestPanel key={question.id} 
+                    questObj={question} 
+                    optionOnClick={optionOnClick} 
+                    chosenStatus={chosenStatus}/>
+                  );
+                case QUEST_TYPE_MULTI:
+                  return (<QuestPanel key={question.id} 
+                    questObj={question}
+                    optionOnClick={multiOnClick} 
+                    chosenStatus={chosenStatus}/>
+                  );
+                default:
+                  return <div/>;
             }
+            return <div/>;
           })}
         </Panel.Body>
         <Pager>
           
           <Pager.Item disabled={!havePrevious} 
-            onClick={()=>{previousOnClick()}}>
+            onClick={()=>{previousOnClick(id)}}>
             Previous
           </Pager.Item>{' '}
           
           <Pager.Item disabled={!enableNext(questGroupObj)} 
-            onClick={()=>{nextOnClick(questGroupObj.next(chosenStatus))}}>
+            onClick={()=>{nextOnClick(id, questGroupObj.next(chosenStatus))}}>
             Next
           </Pager.Item>
         
@@ -130,6 +132,7 @@ const QuestGroup = ({
 }
 
 QuestGroup.propTypes = {
+  id: PropTypes.string,
 	questGroupObj: PropTypes.obj,
 	optionOnClick: PropTypes.func,
   multiOnClick: PropTypes.func,

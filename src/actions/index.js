@@ -20,21 +20,24 @@ export const NEXT_ON_CLICK = "NEXT_ON_CLICK";
 export const PREVIOUS_ON_CLICK = "PREVIOUS_ON_CLICK";
 export const START_OVER_ON_CLICK = "START_OVER_ON_CLICK";
 
-export const handleNextOnClick = next => {
+export const handleNextOnClick = (id, next) => {
 	return {
 		type: NEXT_ON_CLICK,
+		id, 
 		next
 	}
 }
 
-export const handlePreviousOnClick = () => {
+export const handlePreviousOnClick = (id) => {
 	return {
-		type: PREVIOUS_ON_CLICK
+		type: PREVIOUS_ON_CLICK,
+		id
 	}
 }
 
-export const handleStartOverOnClick = () => {
+export const handleStartOverOnClick = (id) => {
 	return {
-		type: START_OVER_ON_CLICK
+		type: START_OVER_ON_CLICK,
+		id
 	}
 }

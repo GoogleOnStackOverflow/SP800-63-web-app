@@ -11,14 +11,16 @@ export const option = (parent, num, name, describtion) => {
 	};
 };
 
-export const question = (group, num, name, describtion, optStringArr, type) => {
+export const question = (group, num, name, describtion, optStringArr, type, activateFunction) => {
+	activateFunction = activateFunction === undefined? (status) => {return true} : activateFunction;
 	type = type === undefined ? QUEST_TYPE_SINGLE : type;
 	return {
 		id: `${group}-${num}`,
 		type: type,
 		name: name,
 		describtion: describtion,
-		options: optStringArr.map((optString,index) => option(`${group}-${num}`, index, optString[0], optString[1]))
+		options: optStringArr.map((optString,index) => option(`${group}-${num}`, index, optString[0], optString[1])),
+		active: activateFunction
 	};
 }
 

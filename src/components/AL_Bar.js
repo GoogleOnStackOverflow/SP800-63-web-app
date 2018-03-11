@@ -48,7 +48,7 @@ const ProgressWindow = ({requirementStatusArr, requirementsArr, levelArr}) => {
       <XALProgressBar name={`IAL${levelArr[0]}`} requirementStatus={requirementStatusArr[0]} requirements={requirementsArr[0]}/>
       <XALProgressBar name={`AAL${levelArr[1]}`} requirementStatus={requirementStatusArr[1]} requirements={requirementsArr[1]}/>
       <div>
-      { levelArr[3] !== 0 ? <XALProgressBar name={`FAL${levelArr[2]}`} requirementStatus={requirementStatusArr[2]} requirements={requirementsArr[2]}/> : <p>No FAL required</p> }
+      { levelArr[2] !== 0 ? <XALProgressBar name={`FAL${levelArr[2]}`} requirementStatus={requirementStatusArr[2]} requirements={requirementsArr[2]}/> : <p>No FAL required</p> }
       </div>
     </PageHeader>
   );

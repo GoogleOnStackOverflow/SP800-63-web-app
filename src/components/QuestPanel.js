@@ -2,20 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Panel, PanelGroup } from 'react-bootstrap';
 
+const optionIsComplete = (status, questObj, requirements) => {
+  if(requirements === undefined)
+    return false;
+
+  if(Array.isArray(status[questObj.id]) && Array.isArray(requirements[questObj.id]))
+    return JSON.stringify(status[questObj.id]) === JSON.stringify(requirements[questObj.id]);
+
+  return false;
+}
+
 const optionIsChosen = (status , questId, optId) => {
   if(status[questId] === undefined)
     return false;
   if(Array.isArray(status[questId]))
-    return status[questId].indexOf(optId) !== -1;
+    return status[questId].includes(optId);
   
   return status[questId] === optId;
 }
 
-const OptionPanel = ({optionObj, optionOnClick, isChosen}) => {
+const OptionPanel = ({optionObj, optionOnClick, isChosen, isSuggested}) => {
 	return (
-	<Panel eventKey={optionObj.id} 
+	<Panel eventKey={optionObj.id}
     onClick={() => {optionOnClick(optionObj)}} 
-    bsStyle={isChosen?"success":"default"}>
+    bsStyle={isChosen?"success":(isSuggested?"warning":"default")}>
     <Panel.Heading>
       <Panel.Title toggle>
         {optionObj.name}
@@ -32,24 +42,30 @@ const OptionPanel = ({optionObj, optionOnClick, isChosen}) => {
 OptionPanel.propTypes = {
 	optionObj: PropTypes.obj,
 	optionOnClick: PropTypes.func,
-	isChosen: PropTypes.bool
+	isChosen: PropTypes.bool,
+  isSuggested: PropTypes.bool
 };
 
-const QuestPanel = ({questObj, optionOnClick, chosenStatus, isCollapsed}) => {
+const QuestPanel = ({questObj, optionOnClick, chosenStatus, isCollapsed, requirements}) => {
   isCollapsed = isCollapsed === undefined? false : isCollapsed;
+
 	return (
-	<Panel>
+	<Panel key={questObj.id} bsStyle={isCollapsed?(optionIsComplete(chosenStatus, questObj, requirements)?"success":"default"):"default"}>
 		<Panel.Heading>
       <Panel.Title toggle componentClass="h3">{questObj.name}</Panel.Title>
     </Panel.Heading>
     <Panel.Body collapsible={isCollapsed} defaultExpanded>{questObj.describtion}
     <PanelGroup accordion id={questObj.id}>
-    	{questObj.options.map(option => (
-    		<OptionPanel key={option.id} 
-    		optionObj={option} 
-    		optionOnClick={optionOnClick} 
-    		isChosen={optionIsChosen(chosenStatus, questObj.id, option.id)}
-    	/>))}
+    	{questObj.options.map(option => {
+        if(!isCollapsed || (requirements===undefined? false:(isCollapsed && requirements[questObj.id].includes(option.id))))
+          return (  
+            <OptionPanel key={option.id} 
+    		    optionObj={option} 
+    		    optionOnClick={optionOnClick} 
+    		    isChosen={optionIsChosen(chosenStatus, questObj.id, option.id)}
+          />);
+        return <div/>;
+      })}
     </PanelGroup>
     </Panel.Body>
 	</Panel>);
@@ -59,7 +75,8 @@ QuestPanel.propTypes = {
 	questObj: PropTypes.obj,
 	optionOnClick: PropTypes.func,
 	chosenStatus: PropTypes.obj,
-  isCollapsed: PropTypes.bool
+  isCollapsed: PropTypes.bool,
+  requirements: PropTypes.obj,
 }
 
 export default QuestPanel;

@@ -7,7 +7,7 @@ const FlowTab = ({contentArr}) => {
     <Tabs defaultActiveKey={0} id="tab-test">
       {contentArr.map((contentObj, index) => {
         return (
-          <Tab eventKey={index} title={contentObj.name} disabled={false}>
+          <Tab key={index} eventKey={index} title={contentObj.name} disabled={false}>
             {contentObj.domClass}
           </Tab>
         );

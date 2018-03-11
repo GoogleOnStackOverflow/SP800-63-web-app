@@ -25,7 +25,10 @@ const tabContentArr = [
   },
   {
     name:'Feature Checking',
-    domClass: <QuestionGroup id="feature-selector" questGroupObjArr={featureQeustGroup}/>,
+    domClass: <QuestionGroup 
+      id="feature-selector" 
+      questGroupObjArr={featureQeustGroup}
+    />,
   },
   {
     name:'Requirements',

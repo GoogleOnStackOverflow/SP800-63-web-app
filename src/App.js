@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import QuestionGroup from './containers/QuestionGroup';
+import RequirementGroup from './containers/RequirementGroup';
 import { xALSelectQuestGroup } from './rules/selectingQuestionPool';
 import { featureQeustGroup } from './rules/featureQuestionPool';
 import ProgressWindow from './containers/ProgressWindow';
 import FlowTab from './components/FlowTab';
+
+const requestTabContentArr = [
+  {
+    name:'Enrollment & Identity Proofing',
+    domClass: <RequirementGroup id="IAL" questGroupObj={featureQeustGroup[0]}/>,
+  },
+  {
+    name:'Authentication',
+    domClass: <RequirementGroup id="AAL" questGroupObj={featureQeustGroup[1]}/>,
+  }
+];
 
 const tabContentArr = [
   {
@@ -14,6 +26,10 @@ const tabContentArr = [
   {
     name:'Feature Checking',
     domClass: <QuestionGroup id="feature-selector" questGroupObjArr={featureQeustGroup}/>,
+  },
+  {
+    name:'Requirements',
+    domClass: <FlowTab contentArr={requestTabContentArr}/>
   }
 ];
 

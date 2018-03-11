@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import QuestGroup from '../components/QuestPanel';
+import QuestGroup from '../components/QuestGroup';
 import { handleOptionOnClick, handleMultiOnClick, handlePreviousOnClick, handleNextOnClick, handleStartOverOnClick } from '../actions';
 
 const mapStateToProps = (state, ownProps) => {

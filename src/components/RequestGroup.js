@@ -4,7 +4,7 @@ import { Panel } from 'react-bootstrap';
 import QuestPanel from './QuestPanel';
 
 const RequestGroup = ({
-  id, questGroupObj, requestOnClick, chosenStatus}) => 
+  id, questGroupObj, requestOnClick, chosenStatus, requirements}) => 
 {
   if(questGroupObj === undefined)
     return (
@@ -29,7 +29,8 @@ const RequestGroup = ({
                   questObj={question}
                   optionOnClick={requestOnClick} 
                   chosenStatus={chosenStatus}
-                  isCollapsed={true}/>
+                  isCollapsed={true}
+                  requirements={requirements}/>
                 );
             return <div/>;
           })}
@@ -41,7 +42,8 @@ RequestGroup.propTypes = {
   id: PropTypes.string,
 	questGroupObj: PropTypes.obj,
 	requestOnClick: PropTypes.func,
-	chosenStatus: PropTypes.obj
+	chosenStatus: PropTypes.obj,
+  requirements: PropTypes.obj
 }
 
 export default RequestGroup;

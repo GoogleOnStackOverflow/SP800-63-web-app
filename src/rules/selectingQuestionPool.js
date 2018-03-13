@@ -313,7 +313,7 @@ export const selectXALs = (status) => {
 	if(status['0-0'] === 0) {
 		ial = status['10-0']+1;
 		aal = status['10-1']+1;
-		fal = status['10-2'];
+		fal = status['10-2'] === 0 ? NaN : status['10-2'];
 	} else if (status['0-0'] === 1){
 		if(status['1-0']===1) ial = 1;
 		if(status['2-0']===1) ial = 1;
@@ -361,11 +361,11 @@ export const selectXALs = (status) => {
 		if(status['5-0'] === 0 ||
 			status['6-0'] === 1 || 
 			status['7-0'] === 1)
-			fal =  0;
+			fal =  NaN;
 	}
 
 	if(ial >= 2 && aal === 1) aal = ial;
-	if(ial >= 2 && fal !== 0) fal = ial;
+	if(ial >= 2 && !isNaN(fal)) fal = ial;
 
 	return ial === 0 ? [NaN, NaN, NaN] : [ial, aal ,fal];
 };

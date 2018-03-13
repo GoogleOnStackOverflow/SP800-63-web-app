@@ -6,7 +6,7 @@ import QuestPanel from './QuestPanel';
 
 const QuestGroup = ({
   id, questGroupObj, optionOnClick, multiOnClick, previousOnClick, nextOnClick, 
-  startOverOnClick, chosenStatus, havePrevious, enableNext}) => 
+  startOverOnClick, finishedOnClick, chosenStatus, havePrevious, enableNext}) => 
 {
   if(questGroupObj === undefined)
     return (
@@ -70,7 +70,11 @@ const QuestGroup = ({
             onClick={()=>{nextOnClick(id, questGroupObj.next(chosenStatus))}}>
             Next
           </Pager.Item>
-        
+          
+          {finishedOnClick === undefined? <div/> : <Pager.Item disabled={!enableNext(questGroupObj)} 
+            onClick={()=>{finishedOnClick(id)}}>
+              Finished
+            </Pager.Item>} 
         </Pager>
 	  </Panel>);
 }
@@ -83,6 +87,7 @@ QuestGroup.propTypes = {
   previousOnClick: PropTypes.func,
   nextOnClick: PropTypes.func,
   startOverOnClick: PropTypes.func,
+  finishedOnClick: PropTypes.func,
 	chosenStatus: PropTypes.obj,
   havePrevious: PropTypes.bool,
   enableNext: PropTypes.func

@@ -2,21 +2,38 @@ import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import QuestionGroup from './containers/QuestionGroup';
 import RequirementGroup from './containers/RequirementGroup';
-import { xALSelectQuestGroup } from './rules/selectingQuestionPool';
-import { featureQeustGroup } from './rules/featureQuestionPool';
 import ProgressWindow from './containers/ProgressWindow';
 import FlowTab from './components/FlowTab';
+import EvidenceQuestionGroup from './containers/EvidenceQuestionGroup';
+
+import { xALSelectQuestGroup } from './rules/selectingQuestionPool';
+import { featureQeustGroup } from './rules/featureQuestionPool';
+import { IAL_REQ_GROUP, AAL_REQ_GROUP } from './rules/requirements';
 
 const requestTabContentArr = [
   {
     name:'Enrollment & Identity Proofing',
-    domClass: <RequirementGroup id="IAL" questGroupObj={featureQeustGroup[0]}/>,
+    domClass: <RequirementGroup id="IAL" questGroupObj={IAL_REQ_GROUP}/>,
   },
   {
     name:'Authentication',
-    domClass: <RequirementGroup id="AAL" questGroupObj={featureQeustGroup[1]}/>,
+    domClass: <RequirementGroup id="AAL" questGroupObj={AAL_REQ_GROUP}/>,
   }
 ];
+
+const featureCheckingTabContentArr = [
+  {
+    name: 'General Feature Checking',
+    domClass: <QuestionGroup 
+      id="feature-selector" 
+      questGroupObjArr={featureQeustGroup}
+    />
+  },
+  {
+    name: 'Enrollment Evidences Checking',
+    domClass: <EvidenceQuestionGroup />
+  }
+]
 
 const tabContentArr = [
   {
@@ -25,10 +42,7 @@ const tabContentArr = [
   },
   {
     name:'Feature Checking',
-    domClass: <QuestionGroup 
-      id="feature-selector" 
-      questGroupObjArr={featureQeustGroup}
-    />,
+    domClass: <FlowTab contentArr={featureCheckingTabContentArr}/>,
   },
   {
     name:'Requirements',
@@ -44,7 +58,7 @@ class App extends Component {
           <Col xs={6} md={4}>
           </Col>
           <Col xs={12} md={8}>
-            <ProgressWindow requirementsArr={[{'1-1':1},{'1-1':1},{'1-1':1,'1-2':2}]} requirementStatusArr={[{'1-1':1},{'1-1':1},{'1-1':1}]}/>
+            <ProgressWindow requirementsQuestGroupArr={[IAL_REQ_GROUP, AAL_REQ_GROUP]}/>
             <FlowTab contentArr={tabContentArr}/>
           </Col>
         </Row>

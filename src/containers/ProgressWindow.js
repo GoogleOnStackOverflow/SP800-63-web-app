@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 import AL_Bar from '../components/AL_Bar';
 import { selectXALs } from '../rules/selectingQuestionPool';
+import { getRequirementObject } from '../rules/requirements';
 
 const mapStateToProps = (state, ownProps) => {
   return {
     levelArr: selectXALs(state.optionStatus),
-    requirementsArr: ownProps.requirementsArr,
-    requirementStatusArr: ownProps.requirementStatusArr
+    requirementsArr: ownProps.requirementsQuestGroupArr.map(questGroup => getRequirementObject(state.optionStatus, questGroup)),
+    requirementStatusArr: [state.optionStatus, state.optionStatus, state.optionStatus]
   }
 }
 

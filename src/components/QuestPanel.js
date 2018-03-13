@@ -61,7 +61,7 @@ const QuestPanel = ({questObj, optionOnClick, chosenStatus, isCollapsed, require
           return (  
             <OptionPanel key={option.id} 
     		    optionObj={option} 
-    		    optionOnClick={optionOnClick} 
+    		    optionOnClick={option.isChosen === undefined? optionOnClick : ()=> {}} 
     		    isChosen={optionIsChosen(chosenStatus, questObj.id, option.id)}
           />);
         return <div/>;

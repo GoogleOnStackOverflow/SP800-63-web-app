@@ -3,8 +3,17 @@ import PropTypes from 'prop-types';
 import { ProgressBar , Tooltip , OverlayTrigger, PageHeader } from 'react-bootstrap';
 
 const getProgressNow = (requirementStatus, requirements) => {
-  var boolArr = Object.keys(requirements).map(quest_id => {
-    return requirementStatus[quest_id] === requirements[quest_id];
+  if(requirements === undefined)
+    return 0;
+
+  var boolArr = [];
+  Object.keys(requirements).forEach(quest_id => {
+    requirements[quest_id].forEach(option => {
+      if(Array.isArray(requirementStatus[quest_id]))
+        boolArr.push(requirementStatus[quest_id].includes(option));
+      else
+        boolArr.push(false);
+    });
   })
 
   var count = 0;
@@ -12,7 +21,7 @@ const getProgressNow = (requirementStatus, requirements) => {
     count += boolArr[i]? 1 : 0;
 
   if(boolArr.length === 0) return 0;
-  return (count/boolArr.length)*100;
+  return Number(((count/boolArr.length)*100).toFixed(2));
 }
 
 const BarToolTip = (name) => {
@@ -24,13 +33,11 @@ const BarToolTip = (name) => {
 }
 
 const XALProgressBar = ({requirementStatus, name, requirements}) => {
-
-  var now = getProgressNow(requirementStatus, requirements)
   return (
      <OverlayTrigger placement="right" overlay={BarToolTip(name)}>
       <ProgressBar 
-        active now={now} label={`${now}%`}  
-        bsStyle={now <= 60 ? "danger" : (now <= 99 ? "warning" : "success")}/>
+        active now={getProgressNow(requirementStatus, requirements)} label={`${getProgressNow(requirementStatus, requirements)}%`}  
+        bsStyle={getProgressNow(requirementStatus, requirements) <= 60 ? "danger" : (getProgressNow(requirementStatus, requirements) <= 99 ? "warning" : "success")}/>
     </OverlayTrigger>
   );
 }
@@ -47,9 +54,7 @@ const ProgressWindow = ({requirementStatusArr, requirementsArr, levelArr}) => {
       Target xALs complete Progress <small><p>Please finish the feature check problems and start the TODO list to complete the process</p></small>
       <XALProgressBar name={`IAL${levelArr[0]}`} requirementStatus={requirementStatusArr[0]} requirements={requirementsArr[0]}/>
       <XALProgressBar name={`AAL${levelArr[1]}`} requirementStatus={requirementStatusArr[1]} requirements={requirementsArr[1]}/>
-      <div>
-      { levelArr[2] !== 0 ? <XALProgressBar name={`FAL${levelArr[2]}`} requirementStatus={requirementStatusArr[2]} requirements={requirementsArr[2]}/> : <p>No FAL required</p> }
-      </div>
+      <XALProgressBar name={`FAL${levelArr[2]}`} requirementStatus={requirementStatusArr[2]} requirements={requirementsArr[2]}/>
     </PageHeader>
   );
 }

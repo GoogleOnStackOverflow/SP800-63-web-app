@@ -2,7 +2,7 @@ export const QUEST_TYPE_SINGLE = 'QUEST_TYPE_SINGLE';
 export const QUEST_TYPE_MULTI = 'QUEST_TYPE_MULTI';
 export const QUEST_TYPE_TEXT = 'QUEST_TYPE_TEXT';
 
-export const option = (parent, num, name, describtion, activateLevel, activateFunction, isChosenCondition) => {
+export const option = (parent, num, name, describtion, activateLevel, activateFunction, isPassive) => {
 	return {
 		id: num,
 		parent: parent,
@@ -10,7 +10,7 @@ export const option = (parent, num, name, describtion, activateLevel, activateFu
 		describtion: describtion,
 		activateLevel: activateLevel,
 		activateFunction: activateFunction,
-		isChosen: isChosenCondition
+		isPassive: isPassive
 	};
 };
 

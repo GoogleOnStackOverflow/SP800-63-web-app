@@ -51,7 +51,6 @@ const EvidenceQuestion = (num, total, nextFunction) => {
 				['Ownership confirmed by phisical comparison to the strongest evidence', 'The applicant’s ownership of the claimed identity has been confirmed by a physical comparison of the applicant to the strongest piece of identity evidence provided to support the claimed identity.'],
 				['Ownership confirmed by biometric comparison ', 'The applicant’s ownership of the claimed identity has been confirmed by biometric comparison of the applicant to the identity evidence.'],
 				['Biometric comparison using appropriate technologies', 'The applicant’s ownership of the claimed identity has been confirmed by biometric comparison, using appropriate technologies, of the applicant to the strongest piece of identity evidence provided to support the claimed identity.'],
-				['Ownership confirmed by photograph comparison to the strongest evidence', 'The applicant’s ownership of the claimed identity has been confirmed by physical comparison, using appropriate technologies, to a photograph, to the strongest piece of identity evidence provided to support the claimed identity.'],
 				['Photograph comparison using appropriate technologies','The applicant’s ownership of the claimed identity has been confirmed by physical comparison, using appropriate technologies, to a photograph, to the strongest piece of identity evidence provided to support the claimed identity.'],
 			]
 			,QUEST_TYPE_MULTI)
@@ -91,6 +90,58 @@ export const evidenceStrength = (status) => {
 		else if(isAllIncludes([3,7] ,status[`30${i}-0`])
 			|| isAllIncludes([3,8] ,status[`30${i}-0`])
 			|| isAllIncludes([3,9] ,status[`30${i}-0`]))
+			result[i] = 1;
+		else
+			result[i] = 0;
+	}
+
+	return result;
+}
+
+export const validatingStrength = (status) => {
+	var result = []
+	for(var i=0; i<5; i++){
+		if(isAllIncludes([0,1,2,3] ,status[`30${i}-1`]))
+			result[i] = 5;
+		else if(isAllIncludes([0,1] ,status[`30${i}-1`])
+			|| isAllIncludes([0,2] ,status[`30${i}-1`])
+			|| isAllIncludes([0,3] ,status[`30${i}-1`]))
+			result[i] = 4;
+		else if(isAllIncludes([0] ,status[`30${i}-1`])
+			|| isAllIncludes([1] ,status[`30${i}-1`])
+			|| isAllIncludes([2] ,status[`30${i}-1`])
+			|| isAllIncludes([3] ,status[`30${i}-1`]))
+			result[i] = 2;
+		else
+			result[i] = 0;
+	}
+
+	return result;
+}
+
+export const KBV_pieces = (status) => {
+	var result = 0;
+	for(var i=0; i<5; i++){
+		if(isAllIncludes([1] ,status[`30${i}-2`]))
+			result++;
+	}
+
+	return result;
+}
+
+export const verificationStrength = (status) => {
+	var result = []
+	for(var i=0; i<5; i++){
+		if(isAllIncludes([4] ,status[`30${i}-2`]))
+			result[i] = 5;
+		else if(isAllIncludes([4] ,status[`30${i}-2`])
+			|| isAllIncludes([5] ,status[`30${i}-2`]))
+			result[i] = 4;
+		else if(isAllIncludes([1] ,status[`30${i}-2`])
+			|| isAllIncludes([2] ,status[`30${i}-2`])
+			|| isAllIncludes([3] ,status[`30${i}-2`]))
+			result[i] = 2;
+		else if(isAllIncludes([0] ,status[`30${i}-2`]))
 			result[i] = 1;
 		else
 			result[i] = 0;
@@ -159,6 +210,13 @@ export const featureQeustGroup = [
           			['No',
           				'User\'s identity attributes are for identity services and related works only'],
 		        ], QUEST_TYPE_SINGLE),
+      		question(
+				100, 6, 'Minors', 
+				'Do you provide service for minors?',
+				[
+					['Yes','I provide service for minors'],
+					['No', 'No service is available for minors']
+				],QUEST_TYPE_SINGLE),
 			], 
 		(status) => {
 			return 1;

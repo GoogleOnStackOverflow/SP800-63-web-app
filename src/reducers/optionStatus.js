@@ -1,12 +1,12 @@
 import { OPTION_ON_CLICK , MULTI_ON_CLICK } from '../actions'
-import { IAL2_EVIDENCE_CONDITION, IAL3_EVIDENCE_CONDITION } from '../rules/requirements'
+import { IAL_EVIDENCE_CONDITION } from '../rules/requirements'
 
 const spliceAndReturn = (arr, num, len) => {
   arr.splice(num, len);
   return arr;
 }
 
-const passiveConditionsArr = [IAL2_EVIDENCE_CONDITION, IAL3_EVIDENCE_CONDITION];
+const passiveConditionsArr = [IAL_EVIDENCE_CONDITION];
 
 const multi_onclick_check_passive = (state) => {
   var additionalState = Object.assign({}, state);
@@ -15,9 +15,10 @@ const multi_onclick_check_passive = (state) => {
 
     if(newStateChangeObj.add)
       newStateChangeObj.add.forEach(add => {
-        if(Array.isArray(additionalState[add[0]]))
-          additionalState[add[0]].push(add[1]);
-        else
+        if(Array.isArray(additionalState[add[0]])) {
+          if(!additionalState[add[0]].includes(add[1]))
+            additionalState[add[0]].push(add[1]);
+        } else
           additionalState[add[0]] = [add[1]];
       });
     if(newStateChangeObj.remove)

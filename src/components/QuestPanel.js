@@ -7,9 +7,12 @@ const optionIsComplete = (status, questObj, requirements) => {
     return false;
 
   if(Array.isArray(status[questObj.id]) && Array.isArray(requirements[questObj.id]))
-    return JSON.stringify(status[questObj.id]) === JSON.stringify(requirements[questObj.id]);
-
-  return false;
+    requirements[questObj.id].forEach(optId => {
+      if(!(status[questObj.id].includes(optId))) return false;
+    })
+  else return false;
+  
+  return true;
 }
 
 const optionIsChosen = (status , questId, optId) => {
@@ -50,7 +53,7 @@ const QuestPanel = ({questObj, optionOnClick, chosenStatus, isCollapsed, require
   isCollapsed = isCollapsed === undefined? false : isCollapsed;
 
 	return (
-	<Panel key={questObj.id} bsStyle={isCollapsed?(optionIsComplete(chosenStatus, questObj, requirements)?"success":"default"):"default"}>
+	<Panel bsStyle={isCollapsed?(optionIsComplete(chosenStatus, questObj, requirements)?"success":"default"):"default"}>
 		<Panel.Heading>
       <Panel.Title toggle componentClass="h3">{questObj.name}</Panel.Title>
     </Panel.Heading>
@@ -61,7 +64,7 @@ const QuestPanel = ({questObj, optionOnClick, chosenStatus, isCollapsed, require
           return (  
             <OptionPanel key={option.id} 
     		    optionObj={option} 
-    		    optionOnClick={option.isChosen === undefined? optionOnClick : ()=> {}} 
+    		    optionOnClick={option.isPassive? ()=> {} : optionOnClick} 
     		    isChosen={optionIsChosen(chosenStatus, questObj.id, option.id)}
           />);
         return <div/>;

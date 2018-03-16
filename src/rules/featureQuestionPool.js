@@ -158,6 +158,113 @@ export const evidencesQuestGroup = [
 	EvidenceQuestion(4,5,(status)=>{return -1;})
 ];
 
+export const UsageOfAuthenticators = (status) => {
+	var result = {
+		MEMORIZED_SECRET: false,
+		LOOK_UP_SECRET: false,
+		OUT_OF_BAND: false,
+		SINGLE_FACTOR_OTP: false,
+		MULTI_FACTOR_OTP: false,
+		SINGLE_FACTOR_CRYPTO_SOFTWARE: false,
+		MULTI_FACTOR_CRYPTO_SOFTWARE: false,
+		SINGLE_FACTOR_CRYPTO_DEVICE: false,
+		MULTI_FACTOR_CRYPTO_DEVICE: false
+	};
+
+	if(Array.isArray(status['101-0'])){
+		if(status['101-0'].includes(0))
+			result.MEMORIZED_SECRET = true;
+		
+		if(status['101-0'].includes(1))
+			result.LOOK_UP_SECRET = true;
+		
+		if(status['101-0'].includes(2))
+			result.OUT_OF_BAND = true;
+		
+		if(status['101-0'].includes(3))
+			result.SINGLE_FACTOR_OTP = true;
+		
+		if(status['101-0'].includes(4))
+			result.MULTI_FACTOR_OTP = true;
+		
+		if(status['101-0'].includes(5))
+			result.SINGLE_FACTOR_CRYPTO_SOFTWARE = true;
+		
+		if(status['101-0'].includes(6))
+			result.MULTI_FACTOR_CRYPTO_SOFTWARE = true;
+		
+		if(status['101-0'].includes(7))
+			result.SINGLE_FACTOR_CRYPTO_DEVICE = true;
+		
+		if(status['101-0'].includes(8))
+			result.MULTI_FACTOR_CRYPTO_DEVICE = true;
+	}
+		
+	
+	if(Array.isArray(status['101-1'])){
+		if(status['101-1'].includes(0)) {
+			result.MEMORIZED_SECRET = true;
+			result.LOOK_UP_SECRET = true;
+		}
+
+		if(status['101-1'].includes(1)) {
+			result.MEMORIZED_SECRET = true;
+			result.OUT_OF_BAND = true;
+		}
+
+		if(status['101-1'].includes(2)) {
+			result.MEMORIZED_SECRET = true;
+			result.SINGLE_FACTOR_OTP = true;
+		}
+
+		if(status['101-1'].includes(3)) {
+			result.MEMORIZED_SECRET = true;
+			result.SINGLE_FACTOR_CRYPTO_SOFTWARE = true;
+		}
+		
+		if(status['101-1'].includes(4)) {
+			result.MEMORIZED_SECRET = true;
+			result.SINGLE_FACTOR_CRYPTO_DEVICE = true;
+		}
+
+		if(status['101-1'].includes(5))
+			result.MULTI_FACTOR_OTP = true;
+
+		if(status['101-1'].includes(6))
+			result.MULTI_FACTOR_CRYPTO_SOFTWARE = true;
+
+		if(status['101-1'].includes(7))
+			result.MULTI_FACTOR_CRYPTO_DEVICE = true;
+	}
+
+	if(Array.isArray(status['101-2'])){
+		if(status['101-2'].includes(0)) {
+			result.MEMORIZED_SECRET = true;
+			result.SINGLE_FACTOR_OTP = true;
+			result.SINGLE_FACTOR_CRYPTO_SOFTWARE = true;
+		}
+
+		if(status['101-2'].includes(1)) {
+			result.MEMORIZED_SECRET = true;
+			result.SINGLE_FACTOR_CRYPTO_DEVICE = true;
+		}
+
+		if(status['101-2'].includes(2)) {
+			result.SINGLE_FACTOR_OTP = true;
+			result.MULTI_FACTOR_CRYPTO_SOFTWARE = true;
+		}
+
+		if(status['101-2'].includes(3)) {
+			result.SINGLE_FACTOR_OTP = true;
+			result.MULTI_FACTOR_CRYPTO_DEVICE = true;
+		}
+
+		if(status['101-2'].includes(4))
+			result.MULTI_FACTOR_CRYPTO_DEVICE = true;
+	}
+
+	return result;
+}
 
 export const featureQeustGroup = [
 	questionGroup(100, 'Generating Requirements', 'In this part we are going to answer some questions about your service. \n Question Group 1 is about generating IALx requirements', 
@@ -282,25 +389,8 @@ export const featureQeustGroup = [
 					['Yes','We support this feature.'],
 					['No','Memorized secret cannot be recovered in this way.'],
 				],QUEST_TYPE_SINGLE,
-				(status) => {
-					if(Array.isArray(status['101-0']))
-						if(status['101-0'].includes(0))
-							return true;
-
-					if(Array.isArray(status['101-1']))
-						if(status['101-1'].includes(0)
-						|| status['101-1'].includes(1)
-						|| status['101-1'].includes(2)
-						|| status['101-1'].includes(3)
-						|| status['101-1'].includes(4))
-							return true;
-
-					if(Array.isArray(status['101-2']))
-						if(status['101-2'].includes(0)
-						|| status['101-2'].includes(1))
-							return true;
-					return false;
-				}),
+				(status) => (UsageOfAuthenticators(status).MEMORIZED_SECRET)
+			),
 			question(
 				101, 4, 'Out-of-band Device',
 				'How does the out-of-band device complete the authentication?',
@@ -309,15 +399,8 @@ export const featureQeustGroup = [
 					['Transfer of secret to secondary channel','The verifier SHALL display a random authentication secret to the claimant via the primary channel. It SHALL then wait for the secret to be returned on the secondary channel from the claimant’s out-of-band authenticator.'],
 					['Verification of secrets by claimant','The verifier SHALL display a random authentication secret to the claimant via the primary channel, and SHALL send the same secret to the out-of-band authenticator via the secondary channel for presentation to the claimant. It SHALL then wait for an approval (or disapproval) message via the secondary channel.']
 				],QUEST_TYPE_SINGLE,
-				(status) => {
-					if(Array.isArray(status['101-0']))
-						if(status['101-0'].includes(2))
-							return true;
-					if(Array.isArray(status['101-1']))
-						if(status['101-1'].includes(1))
-							return true;
-					return false;
-				}),
+				(status) => (UsageOfAuthenticators(status).OUT_OF_BAND)
+				),
 			question(
 				101, 5, 'Multi Factors',
 				'What second factor would the multi-factor device(s) use? (multi select)',
@@ -326,23 +409,10 @@ export const featureQeustGroup = [
 					['Something you are','For example, biometrics like finger prints'],
 				],QUEST_TYPE_MULTI,
 				(status) => {
-					if(Array.isArray(status['101-0']))
-						if(status['101-0'].includes(4)
-						|| status['101-0'].includes(6)
-						|| status['101-0'].includes(8))
-							return true;
-					if(Array.isArray(status['101-1']))
-						if(status['101-1'].includes(5)
-						|| status['101-1'].includes(6)
-						|| status['101-1'].includes(7))
-							return true;
-					if(Array.isArray(status['101-2']))
-						if(status['101-2'].includes(2)
-						|| status['101-2'].includes(3)
-						|| status['101-2'].includes(4))
-							return true;
-					return false;
-				}),
+					var usage = UsageOfAuthenticators(status);
+					return usage.MULTI_FACTOR_OTP || usage.MULTI_FACTOR_CRYPTO_DEVICE || usage.MULTI_FACTOR_CRYPTO_SOFTWARE;
+				}
+			),
 		],
 		(status) => {
 			return selectXALs(status)[2] > 0 ? 2 : -1;

@@ -313,7 +313,7 @@ export const selectXALs = (status) => {
 	if(status['0-0'] === 0) {
 		ial = status['10-0']+1;
 		aal = status['10-1']+1;
-		fal = status['10-2'] === 0 ? NaN : status['10-2'];
+		fal = status['10-2'] === 0  || status['10-2'] === undefined ? NaN : status['10-2'];
 	} else if (status['0-0'] === 1){
 		if(status['1-0']===1) ial = 1;
 		if(status['2-0']===1) ial = 1;

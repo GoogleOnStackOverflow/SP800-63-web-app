@@ -6,13 +6,12 @@ const optionIsComplete = (status, questObj, requirements) => {
   if(requirements === undefined)
     return false;
 
-  if(Array.isArray(status[questObj.id]) && Array.isArray(requirements[questObj.id]))
-    requirements[questObj.id].forEach(optId => {
-      if(!(status[questObj.id].includes(optId))) return false;
-    })
-  else return false;
+  if(Array.isArray(status[questObj.id]) && Array.isArray(requirements[questObj.id])) {
+    for(var i=0; i<requirements[questObj.id].length; i++)
+      if(!(status[questObj.id].includes(requirements[questObj.id][i]))) return false;
+  } else return false;
   
-  return true;
+  return status[questObj.id].length>0;
 }
 
 const optionIsChosen = (status , questId, optId) => {

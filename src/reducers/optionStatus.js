@@ -1,4 +1,4 @@
-import { OPTION_ON_CLICK , MULTI_ON_CLICK } from '../actions'
+import { OPTION_ON_CLICK , MULTI_ON_CLICK , LOAD_STATE, SAVE_STATE } from '../actions'
 import { IAL_EVIDENCE_CONDITION } from '../rules/requirements'
 
 const spliceAndReturn = (arr, num, len) => {
@@ -67,7 +67,17 @@ const optionStatus = (state = {}, action) => {
           [action.optionObj.parent]: [action.optionObj.id]
         });
       }
-
+    case LOAD_STATE:
+      return action.nextState
+    case SAVE_STATE:
+      if(!action.name){
+        var d = new Date();
+        action.name = d.getTime();
+      }
+      if(!localStorage.savedStates)
+        localStorage.savedStates = {};
+      localStorage.savedStates.setItem(String(action.name), JSON.stringify(state));
+      return state;
     default:
       return state
   }

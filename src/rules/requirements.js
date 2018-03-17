@@ -87,7 +87,6 @@ const getActivatedOptionIndexArr = (status, optionArrs) => {
 export const getRequirementObject = (status, questGroup) => {
   var reqObj = {};
   questGroup.questions.forEach(quest => {
-    console.log(quest);
     if(quest.active(status))
       reqObj[quest.id] = getActivatedOptionIndexArr(status, quest.options)  
   })

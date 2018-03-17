@@ -41,3 +41,44 @@ export const handleStartOverOnClick = (id) => {
 		id
 	}
 }
+
+export const LOAD_STATE = 'LOAD_STATE';
+export const SAVE_STATE = 'SAVE_STATE';
+
+export const handleLoadState = (nextState) => {
+	return {
+		type: LOAD_STATE,
+		nextState
+	}
+}
+
+export const handleSaveState = (name) => {
+	return {
+		type: SAVE_STATE,
+		name
+	}
+}
+
+export const OPEN_MODAL = 'OPEN_MODAL';
+export const CLOSE_MODAL = 'CLOSE_MODAL';
+export const SET_CURRENT_NAME = 'SET_CURRENT_NAME';
+
+export const closeModal = () => {
+	return {
+		type: CLOSE_MODAL
+	}
+}
+
+export const openModal = (name) => {
+	return {
+		type: OPEN_MODAL,
+		name
+	}
+}
+
+export const setCurrentName = (name) => {
+	return {
+		type: SET_CURRENT_NAME,
+		name
+	}
+}

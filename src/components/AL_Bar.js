@@ -50,7 +50,7 @@ XALProgressBar.propTypes = {
 
 const ProgressWindow = ({requirementStatusArr, requirementsArr, levelArr}) => {
   return (
-    <PageHeader>
+    <PageHeader bsClass="clearfix">
       Target xALs complete Progress <small><p>Please finish the feature check problems and start the TODO list to complete the process</p></small>
       <XALProgressBar name={`IAL${levelArr[0]}`} requirementStatus={requirementStatusArr[0]} requirements={requirementsArr[0]}/>
       <XALProgressBar name={`AAL${levelArr[1]}`} requirementStatus={requirementStatusArr[1]} requirements={requirementsArr[1]}/>

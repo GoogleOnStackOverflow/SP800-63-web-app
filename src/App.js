@@ -5,6 +5,7 @@ import RequirementGroup from './containers/RequirementGroup';
 import ProgressWindow from './containers/ProgressWindow';
 import FlowTab from './components/FlowTab';
 import EvidenceQuestionGroup from './containers/EvidenceQuestionGroup';
+import ResultSaveForm from './containers/ResultSaveForm';
 
 import { xALSelectQuestGroup } from './rules/selectingQuestionPool';
 import { featureQeustGroup } from './rules/featureQuestionPool';
@@ -56,6 +57,7 @@ class App extends Component {
       <Grid>
         <Row className="show-grid">
           <Col xs={6} md={4}>
+            <ResultSaveForm/>
           </Col>
           <Col xs={12} md={8}>
             <ProgressWindow requirementsQuestGroupArr={[IAL_REQ_GROUP, AAL_REQ_GROUP]}/>

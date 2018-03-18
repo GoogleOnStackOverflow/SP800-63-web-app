@@ -107,6 +107,31 @@ NotExistsModal.proptypes = {
   closeOnClick: PropTypes.func,
 }
 
+export const LoadConfirmModal = ({modalState, closeOnClick, loadState}) => {
+  const modal_name = 'LOAD';
+
+  return (
+    <Modal show={modalIsShow(modalState, modal_name)} onHide={closeOnClick}>
+      <Modal.Header closeButton>
+        <Modal.Title>Load Result Confirmation</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p>Are you sure to load result {modalState.name}? Current state would be totally cleared after this operation.</p>
+      </Modal.Body>
+      <Modal.Footer>
+          <Button onClick={closeOnClick}>No</Button>
+          <Button onClick={()=>{loadState(modalState.name)}}>Yes</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
+LoadConfirmModal.proptypes = {
+  modalState: PropTypes.obj,
+  closeOnClick: PropTypes.func,
+  loadState: PropTypes.func
+}
+
 export const EmptyCancleModal = ({modalState, closeOnClick}) => {
   const modal_name = 'EMPTY_CANCEL';
 

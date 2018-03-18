@@ -12,6 +12,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
 	return {
 		openModal: name => {
+			console.log(`OPEN MODAL ${name}`);
 			dispatch(openModal(name));
 		},
 		closeOnClick: () => {

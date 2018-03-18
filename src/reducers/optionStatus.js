@@ -74,9 +74,8 @@ const optionStatus = (state = {}, action) => {
         var d = new Date();
         action.name = d.getTime();
       }
-      if(!localStorage.savedStates)
-        localStorage.savedStates = {};
-      localStorage.savedStates.setItem(String(action.name), JSON.stringify(state));
+      
+      localStorage.setItem(String(action.name), JSON.stringify(state));
       return state;
     default:
       return state

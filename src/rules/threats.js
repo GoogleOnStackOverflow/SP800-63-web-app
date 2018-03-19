@@ -2,23 +2,22 @@ import { threat, mitigation } from './index'
 import { getRequirementObject, IAL_REQ_GROUP, AAL_REQ_GROUP } from './requirements';
 
 const objAllIncludes = (status, reqObj) => {
-  console.log('!!!!');
-  console.log(reqObj);
-  console.log(status);
-  console.log('!!!');
   if(!reqObj)
     return false;
 
   if(Object.keys(reqObj).length === 0)
     return false;
 
-  Object.entries(reqObj).forEach(req => {
-    if(Array.isArray(status[req[0]]) && Array.isArray(req[1]))
-      req[1].forEach(index => {
-        if(!(status[req[0]].includes(index))) return false;
-      });
-    else return false;
-  });
+  var reqs = Object.entries(reqObj)
+
+  for(var i=0; i<reqs.length; i++) {
+    if(Array.isArray(status[reqs[i][0]]) && Array.isArray(reqs[i][1])) {
+      for(var j=0; j<reqs[i][1].length; j++) {
+        console.log(status[reqs[i][0]].includes(reqs[i][1][j]))
+        if(!(status[reqs[i][0]].includes(reqs[i][1][j]))) return false;
+      }
+    } else return false;
+  }
 
   return true;
 }

@@ -285,7 +285,7 @@ export const xALSelectQuestGroup = [
 					['IAL3',''],
 				]),
 			question(
-				10, 1, 'Identity Assurance Level', 
+				10, 1, 'Authenticator Assurance Level', 
 				'I would have to use:',
 				[
 					['AAL1',''],
@@ -293,7 +293,7 @@ export const xALSelectQuestGroup = [
 					['AAL3',''],
 				]),
 			question(
-				10, 2, 'Identity Assurance Level', 
+				10, 2, 'Federation Assurance Level', 
 				'I would have to use:',
 				[
 					['I\'m not federating',''],

@@ -36,3 +36,18 @@ export const questionGroup = (num, name, describtion, questionArr, nextFunction)
 		next: nextFunction
 	};
 }
+
+export const mitigation = (describtion, isAchieved) => {
+	return {
+		describtion,
+		isAchieved
+	}
+}
+
+export const threat = (name, describtion, mitigationArr) => {
+	return {
+		name,
+		describtion,
+		mitigationArr,
+	}
+}

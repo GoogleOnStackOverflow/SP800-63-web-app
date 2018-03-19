@@ -6,8 +6,6 @@ import { SaveModal, DefaultNameModal,
 import { Button, FormGroup, InputGroup, FormControl, DropdownButton, MenuItem } from 'react-bootstrap';
 
 const correctModalName = (optionState, modalState) => {
-  // 'SAVE', DEFAULT_NAME_ASSIGNED, 
-  // EXISTS_REPLACE, NOT_EXISTS, EMPTY_CANCEL
   if(Object.keys(optionState).length === 0)
     return 'EMPTY_CANCEL';
 
@@ -17,7 +15,7 @@ const correctModalName = (optionState, modalState) => {
   if(Object.keys(localStorage).includes(modalState.name))
       return 'EXISTS_REPLACE';
 
-  return 'SAVE';
+  return undefined;
 }
 
 const SaveForm = ({optionState, modalState, openModal, closeOnClick, saveState, loadState, chagneName}) => {

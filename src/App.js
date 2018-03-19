@@ -6,10 +6,12 @@ import ProgressWindow from './containers/ProgressWindow';
 import FlowTab from './components/FlowTab';
 import EvidenceQuestionGroup from './containers/EvidenceQuestionGroup';
 import ResultSaveForm from './containers/ResultSaveForm';
+import ThreatListPanel from './containers/ThreatListPanel';
 
 import { xALSelectQuestGroup } from './rules/selectingQuestionPool';
 import { featureQeustGroup } from './rules/featureQuestionPool';
 import { IAL_REQ_GROUP, AAL_REQ_GROUP } from './rules/requirements';
+import { IAL_THREADS } from './rules/threats';
 
 const requestTabContentArr = [
   {
@@ -48,6 +50,10 @@ const tabContentArr = [
   {
     name:'Requirements',
     domClass: <FlowTab contentArr={requestTabContentArr}/>
+  },
+  {
+    name:'Threats',
+    domClass: <ThreatListPanel threats={IAL_THREADS}/>
   }
 ];
 

@@ -15,7 +15,7 @@ const correctModalName = (optionState, modalState) => {
   if(Object.keys(localStorage).includes(modalState.name))
       return 'EXISTS_REPLACE';
 
-  return undefined;
+  return 'SAVE';
 }
 
 const SaveForm = ({optionState, modalState, openModal, closeOnClick, saveState, loadState, chagneName}) => {

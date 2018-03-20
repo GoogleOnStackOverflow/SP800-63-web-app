@@ -757,7 +757,17 @@ export const AAL_REQ_GROUP = questionGroup(501, 'Requirements for Authentication
               || usage.MULTI_FACTOR_CRYPTO_DEVICE
             );
           }
-        ]
+        ],
+        [
+          'Rate Limiting (Throttling) is implemented properly',
+          'Verifiers SHALL implement a rate-limiting mechanism that effectively limits the number of failed authentication attempts that can be made on the subscriber’s account. Additional techniques MAY be used to reduce the likelihood that an attacker will lock the legitimate claimant out as a result of rate limiting. These include: Requiring the claimant to complete a CAPTCHA before attempting authentication. Requiring the claimant to wait following a failed attempt for a period of time that increases as the account approaches its maximum allowance for consecutive failed attempts (e.g., 30 seconds up to an hour). Accepting only authentication requests that come from a white list of IP addresses from which the subscriber has been successfully authenticated before. Leveraging other risk-based or adaptive authentication techniques to identify user behavior that falls within, or out of, typical norms. When the subscriber successfully authenticates, the verifier SHOULD disregard any previous failed attempts for that user from the same IP address.',
+          [[],[1,2,3],[]]
+        ],
+        [
+          'The verifier limits consecutive failed authentication attempts on a single account to no more than 100.',
+          'Unless otherwise specified in the description of a given authenticator, the verifier SHALL limit consecutive failed authentication attempts on a single account to no more than 100.',
+          [[],[1,2,3],[]]
+        ],
       ]
     ),
     question(501, 2,
@@ -939,16 +949,6 @@ export const AAL_REQ_GROUP = questionGroup(501, 'Requirements for Authentication
         [
           'Subsciber is advised to use another secret and is told the reason why when a chosen password is rejected',
           'If the chosen secret is found unsuitable, the CSP or verifier SHALL advise the subscriber that they need to select a different secret, SHALL provide the reason for rejection, and SHALL require the subscriber to choose a different value.',
-          [[],[1,2,3],[]]
-        ],
-        [
-          'Rate Limiting (Throttling) is implemented properly',
-          'Verifiers SHALL implement a rate-limiting mechanism that effectively limits the number of failed authentication attempts that can be made on the subscriber’s account. Additional techniques MAY be used to reduce the likelihood that an attacker will lock the legitimate claimant out as a result of rate limiting. These include: Requiring the claimant to complete a CAPTCHA before attempting authentication. Requiring the claimant to wait following a failed attempt for a period of time that increases as the account approaches its maximum allowance for consecutive failed attempts (e.g., 30 seconds up to an hour). Accepting only authentication requests that come from a white list of IP addresses from which the subscriber has been successfully authenticated before. Leveraging other risk-based or adaptive authentication techniques to identify user behavior that falls within, or out of, typical norms. When the subscriber successfully authenticates, the verifier SHOULD disregard any previous failed attempts for that user from the same IP address.',
-          [[],[1,2,3],[]]
-        ],
-        [
-          'The verifier limits consecutive failed authentication attempts on a single account to no more than 100.',
-          'Unless otherwise specified in the description of a given authenticator, the verifier SHALL limit consecutive failed authentication attempts on a single account to no more than 100.',
           [[],[1,2,3],[]]
         ],
         [

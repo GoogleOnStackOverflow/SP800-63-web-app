@@ -11,7 +11,7 @@ import ThreatListPanel from './containers/ThreatListPanel';
 import { xALSelectQuestGroup } from './rules/selectingQuestionPool';
 import { featureQeustGroup } from './rules/featureQuestionPool';
 import { IAL_REQ_GROUP, AAL_REQ_GROUP } from './rules/requirements';
-import { IAL_THREADS } from './rules/threats';
+import { IAL_THREATS, AAL_THREATS } from './rules/threats';
 
 const requestTabContentArr = [
   {
@@ -19,7 +19,7 @@ const requestTabContentArr = [
     domClass: <RequirementGroup id="IAL" questGroupObj={IAL_REQ_GROUP}/>,
   },
   {
-    name:'Authentication',
+    name:'Authentication & Lifecycle Management',
     domClass: <RequirementGroup id="AAL" questGroupObj={AAL_REQ_GROUP}/>,
   }
 ];
@@ -38,6 +38,17 @@ const featureCheckingTabContentArr = [
   }
 ]
 
+const threatTabContentArr = [
+  {
+    name:'Enrollment & Identity Proofing',
+    domClass: <ThreatListPanel name="Enrollment & Identity Proofing" threats={IAL_THREATS}/>
+  },
+  {
+    name:'Authentication & Lifecycle Management',
+    domClass: <ThreatListPanel name="Authentication & Lifecycle Management" threats={AAL_THREATS}/>
+  }
+];
+
 const tabContentArr = [
   {
     name:'xAL Selector',
@@ -53,7 +64,7 @@ const tabContentArr = [
   },
   {
     name:'Threats',
-    domClass: <ThreatListPanel threats={IAL_THREADS}/>
+    domClass: <FlowTab contentArr={threatTabContentArr}/>
   }
 ];
 

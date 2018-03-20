@@ -4,7 +4,8 @@ import ThreatList from '../components/ThreatList'
 const mapStateToProps = (state, ownProps) => {
 	return {
 		optionStatus: state.optionStatus,
-		threats: ownProps.threats
+		threats: ownProps.threats,
+		category: ownProps.name
 	};
 }
 

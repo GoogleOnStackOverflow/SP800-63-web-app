@@ -29,12 +29,12 @@ const ThreatAndMitigations = (optionStatus, threat) => {
   );
 }
 
-const ThreatList = ({threats, optionStatus}) => {
+const ThreatList = ({category, threats, optionStatus}) => {
   return (
     <Panel>
       <Panel.Heading>
         <Panel.Title>
-          Threats and related mitigations
+          Threats and related mitigations ({category})
         </Panel.Title>
       </Panel.Heading>
       <Panel.Body>
@@ -52,6 +52,7 @@ const ThreatList = ({threats, optionStatus}) => {
 }
 
 ThreatList.proptypes = {
+  category: PropTypes.string,
   optionStatus: PropTypes.obj,
   threats: PropTypes.array
 }

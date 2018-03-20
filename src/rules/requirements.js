@@ -101,124 +101,148 @@ export const IAL_REQ_GROUP = questionGroup(500, 'Requirements for Enrollment and
       'General Requirements for CSP and Personal information process',
       'In this part we\'ll check out some general requirements. When the describtion match the practice status, make the requirement green.',
       [
+      // 0
         [
           'Collection of personal information is limited to the minimum necessary',
           'Collection of PII SHALL be limited to the minimum necessary to validate the existence of the claimed identity and associate the claimed identity with the applicant providing identity evidence for appropriate identity resolution, validation, and verification. This MAY include attributes that correlate identity evidence to authoritative sources and to provide RPs with attributes used to make authorization decisions.',
           [[2,3],[],[]]
         ],
+      // 1
         [ 
           'Provide notice of usage of personal information',
           'The CSP SHALL provide explicit notice to the applicant at the time of collection regarding the purpose for collecting and maintaining a record of the attributes necessary for identity proofing, including whether such attributes are voluntary or mandatory to complete the identity proofing process, and the consequences for not providing the attributes.',
           [[2,3],[],[]]
         ],
+      // 2
         [
           'Measures for additional processing of personal information',
           'If CSPs process attributes for purposes other than identity proofing, authentication, or attribute assertions (collectively “identity service”), related fraud mitigation, or to comply with law or legal process, CSPs SHALL implement measures to maintain predictability and manageability commensurate with the privacy risk arising from the additional processing. Measures MAY include providing clear notice, obtaining subscriber consent, or enabling selective use or disclosure of attributes.',
           [[1,2,3],[],[]],
           (status) => (status['100-5'] === 0)
         ],
+      // 3
         [
           'Consent for additional processing is not condition of service',
           'When CSPs use consent measures, CSPs SHALL NOT make consent for the additional processing a condition of the identity service.',
           [[1,2,3],[],[]],
           (status) => (status['100-5'] === 0)
         ],
+      // 4
         [
           'Provide mechanisms for redress or problem arising',
           'The CSP SHALL provide mechanisms for redress of applicant complaints or problems arising from the identity proofing. These mechanisms SHALL be easy for applicants to find and use. The CSP SHALL assess the mechanisms for their efficacy in achieving resolution of complaints or problems.',
           [[2,3],[],[]]
         ],
+      // 5
         [
           'Provide appropriate practice statement',
           'The identity proofing and enrollment processes SHALL be performed according to an applicable written policy or *practice statement* that specifies the particular steps taken to verify identities. The *practice statement* SHALL include control information detailing how the CSP handles proofing errors that result in an applicant not being successfully enrolled. For example, the number of retries allowed, proofing alternatives (e.g., in-person if remote fails), or fraud counter-measures when anomalies are detected.',
           [[2,3],[],[]]
         ],
+      // 6
         [
           'Maintain a record of associated logs',
           'The CSP SHALL maintain a record, including audit logs, of all steps taken to verify the identity of the applicant and SHALL record the types of identity evidence presented in the proofing process.',
           [[2,3],[],[]]
         ],
+      // 7
         [
           'Conduct risk management for enrollment process',
           'The CSP SHALL conduct a risk management process, including assessments of privacy and security risks to determine any steps that it will take to verify the identity of the applicant beyond any mandatory requirements specified herein',
           [[2,3],[],[]]
         ],
+      // 8
         [
           'Conduct risk management for records of attributes',
           'The CSP SHALL conduct a risk management process, including assessments of privacy and security risks to determine the PII, including any biometrics, images, scans, or other copies of the identity evidence that the CSP will maintain as a record of identity proofing (Note: Specific federal requirements may apply.)',
           [[2,3],[],[]]
         ],
+      // 9
         [
           'Conduct risk management for privacy risks',
           'The CSP SHALL conduct a risk management process, including assessments of privacy and security risks to determine the schedule of retention for these records. Note: CSPs may be subject to specific retention policies in accordance with applicable laws, regulations, or policies, including any National Archives and Records Administration (NARA) records retention schedules that may apply.',
           [[2,3],[],[]]
         ],
+      // 10
         [
 
           'All persinal information collected as part of the enrollment process is protected',
           'All PII collected as part of the enrollment process SHALL be protected to ensure confidentiality, integrity, and attribution of the information source.',
           [[2,3],[],[]]
         ],
+      // 11
         [
           'Use authenticated protected channel',
           'The entire proofing transaction, including transactions that involve a third party, SHALL occur over an authenticated protected channel.',
           [[2,3],[],[]]
         ],
+      // 12
         [
           'Sensitive information is properly distroyed after identity proofing ceased',
           'In the event a CSP ceases to conduct identity proofing and enrollment processes, the CSP SHALL be responsible for fully disposing of or destroying any sensitive data including PII, or its protection from unauthorized access for the duration of retention.',
           [[2,3],[],[]]
         ],
+      // 13
         [
           'Privacy Act checked',
           'The agency SHALL consult with their Senior Agency Official for Privacy (SAOP) to conduct an analysis determining whether the collection of PII to conduct identity proofing triggers Privacy Act requirements.',
           [[1,2,3],[],[]]
         ],
+      // 14
         [
           'SORN is published',
           'The agency SHALL publish a System of Records Notice (SORN) to cover such collection, as applicable.',
           [[1,2,3],[],[]]
         ],
+      // 15
         [
           'E-Government Act of 2002 checked',
           'The agency SHALL consult with their SAOP to conduct an analysis determining whether the collection of PII to conduct identity proofing triggers E-Government Act of 2002 requirements.',
           [[1,2,3],[],[]]
         ],
+      // 16
         [
           'Privacy Impact Assessment published',
           'The agency SHALL publish a Privacy Impact Assessment (PIA) to cover such collection, as applicable.',
           [[1,2,3],[],[]]
         ],
+      // 17
         [
           'A CSP that supports only IAL1 SHALL NOT validate and verify attributes.',
           'A CSP that supports only IAL1 SHALL NOT validate and verify attributes.',
           [[1],[],[]]
         ],
+      // 18
         [
           'A CSP SHALL preferentially proof according to the requirements',
           'A CSP SHALL preferentially proof according to the requirements',
           [[2,3],[],[]]
         ],
+      // 19
         [
           'Security controll is appropriately employed',
           'The CSP SHALL employ appropriately tailored security controls, to include control enhancements, from the moderate or high baseline of security controls defined in SP 800-53 or equivalent federal (e.g., FEDRAMP) or industry standard.',
           [[2,3],[],[]]
         ],
+      // 20
         [
           'The minimum assurance-related controls for low-impact systems or equivalent are satisfied.',
           'The CSP SHALL ensure that the minimum assurance-related controls for high-impact systems or equivalent are satisfied.',
           [[1],[],[]]
         ],
+      // 21
         [
           'The minimum assurance-related controls for moderate-impact systems or equivalent are satisfied.',
           'The CSP SHALL ensure that the minimum assurance-related controls for high-impact systems or equivalent are satisfied.',
           [[2],[],[]]
         ],
+      // 22
         [
           'The minimum assurance-related controls for high-impact systems or equivalent are satisfied.',
           'The CSP SHALL ensure that the minimum assurance-related controls for high-impact systems or equivalent are satisfied.',
           [[3],[],[]]
         ],
+      // 23
         [
           'Biometric sample is collected at the time of proofing',
           'The CSP SHALL collect and record a biometric sample at the time of proofing (e.g., facial image, fingerprints) for the purposes of non-repudiation and re-proofing',
@@ -274,7 +298,7 @@ export const IAL_REQ_GROUP = questionGroup(500, 'Requirements for Enrollment and
         [
           'Address of record is confirmed',
           'The CSP SHALL confirm address of record. The CSP SHOULD confirm address of record through validation of the address contained on any supplied, valid piece of identity evidence. The CSP MAY confirm address of record by validating information supplied by the applicant that is not contained on any supplied piece of identity evidence.',
-          [[2],[],[]]
+          [[2,3],[],[]]
         ],
         [
           'Use records from issuing source(s) or authoritative source(s) to confirm address',
@@ -541,7 +565,7 @@ export const IAL_REQ_GROUP = questionGroup(500, 'Requirements for Enrollment and
   ]
 );
 
-export const AAL_REQ_GROUP = questionGroup(501, 'Requirements for Enrollment and Odentity proofing',
+export const AAL_REQ_GROUP = questionGroup(501, 'Requirements for Authentication and Lifecycle Management',
   'To achieve the target AAL, please check if all these requirements are satisfied. Please click the title of each categories to toggle the collapsed requirements. When all requirements in a category are checked, the category panel would be green. Make all the panels green to achieve the AAL',
   [
     question(501,0,
@@ -720,6 +744,19 @@ export const AAL_REQ_GROUP = questionGroup(501, 'Requirements for Enrollment and
           'Authentication and reauthentication process demonstrate authentication intent from at least one authenticator',
           'All authentication and reauthentication processes at AAL3 SHALL demonstrate authentication intent from at least one authenticator.Authentication intent MAY be established in a number of ways. Authentication processes that require the subject’s intervention (e.g., a claimant entering an authenticator output from an OTP device) establish intent. Cryptographic devices that require user action (e.g., pushing a button or reinsertion) for each authentication or reauthentication operation are also establish intent.',
           [[],[3],[]]
+        ],
+        [
+          'Relevant side-channel attacks are determined by a risk assessment performed by the CSP.',
+          'Hardware-based authenticators and verifiers at AAL3 SHOULD resist relevant side-channel (e.g., timing and power-consumption analysis) attacks. Relevant side-channel attacks SHALL be determined by a risk assessment performed by the CSP.',
+          [[],[3],[]],
+          (status) => {
+            var usage = UsageOfAuthenticators(status);
+            return (usage.SINGLE_FACTOR_OTP
+              || usage.MULTI_FACTOR_OTP
+              || usage.SINGLE_FACTOR_CRYPTO_DEVICE
+              || usage.MULTI_FACTOR_CRYPTO_DEVICE
+            );
+          }
         ]
       ]
     ),
@@ -1450,7 +1487,7 @@ export const AAL_REQ_GROUP = questionGroup(501, 'Requirements for Enrollment and
         ],
       ]
     ),
-    question(501, 15,
+    question(501, 14,
       'Authenticator Compromised, Expired and Revoked',
       'In this part we take a look at the process how a subscriber troubleshooting their authenticators when problems occur. Please check the requirements and make them green if they match the practive status',
       [

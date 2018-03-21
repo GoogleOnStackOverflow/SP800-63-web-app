@@ -40,7 +40,6 @@ const ThreatList = ({category, threats, optionStatus}) => {
       <Panel.Body>
         <p>Here we list the threats having normative mitigations.</p>
         <p>Those threats not mitigated (or not required to be mitigated at the assureance levels) would be red</p>
-        <p>For other threads and suggestions, see "Suggestions".</p>
         {
           threats.map(threat => (
             ThreatAndMitigations(optionStatus, threat)

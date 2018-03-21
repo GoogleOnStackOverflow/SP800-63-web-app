@@ -33,9 +33,37 @@ SaveModal.proptypes = {
   closeOnClick: PropTypes.func
 }
 
+export const DeleteModal = ({modalState, closeOnClick, deleteOnClick}) =>  {
+  const modal_name = 'DELETE';
+
+  return (
+    <Modal show={modalIsShow(modalState, modal_name)} onHide={closeOnClick}>
+      <Modal.Header closeButton>
+        <Modal.Title>Delete Confirmation</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p>Are you sure to delete the result {getCurrentName(modalState)}?</p>
+        <strong><p>This action is not revertable</p></strong>
+      </Modal.Body>
+      <Modal.Footer>
+          <Button onClick={closeOnClick}>Cancle</Button>
+          <Button 
+            onClick={()=>{deleteOnClick(modalState.name)}}
+            bsStyle='danger'
+          >Delete</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
+DeleteModal.proptypes = {
+  modalState: PropTypes.obj,
+  closeOnClick: PropTypes.func,
+  deleteOnClick: PropTypes.func
+}
+
 export const DefaultNameModal = ({modalState, closeOnClick, saveOnClick}) =>  {
   const modal_name = 'DEFAULT_NAME_ASSIGNED';
-  var d = new Date();
 
   return (
     <Modal show={modalIsShow(modalState, modal_name)} onHide={closeOnClick}>
@@ -43,11 +71,11 @@ export const DefaultNameModal = ({modalState, closeOnClick, saveOnClick}) =>  {
         <Modal.Title>Result Name Not Specified</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>The result name is not specified, use {String(d.getTime())} as the name to save it?</p>
+        <p>The result name is not specified, use {modalState.name} as the name to save it?</p>
       </Modal.Body>
       <Modal.Footer>
           <Button onClick={closeOnClick}>Cancel</Button>
-          <Button onClick={()=>{saveOnClick(String(d.getTime()))}}>Save</Button>
+          <Button onClick={()=>{saveOnClick(modalState.name)}}>Save</Button>
       </Modal.Footer>
     </Modal>
   );

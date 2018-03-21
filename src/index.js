@@ -6,7 +6,13 @@ import estApp from './reducers';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
+import { GetAllResultNames } from './FirebaseActions';
+
 let store = createStore(estApp);
+
+GetAllResultNames((names) => {
+	localStorage.setItem('names', JSON.stringify(names));
+});
 
 ReactDOM.render(
   <Provider store={store}>

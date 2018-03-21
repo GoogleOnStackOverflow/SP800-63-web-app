@@ -1,9 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { SaveModal, DefaultNameModal, 
   ExistsReplaceModal, NotExistsModal, 
-  EmptyCancleModal, LoadConfirmModal } from './ResultSaveModals';
-import { Button, FormGroup, InputGroup, FormControl, DropdownButton, MenuItem } from 'react-bootstrap';
+  EmptyCancleModal, LoadConfirmModal, 
+  DeleteModal } from './ResultSaveModals';
+
+import { Button, FormGroup, 
+  InputGroup, FormControl, 
+  DropdownButton, MenuItem } from 'react-bootstrap';
+
+import { GetResultByName } from '../FirebaseActions';
+
 
 const correctModalName = (optionState, modalState) => {
   if(Object.keys(optionState).length === 0)
@@ -12,14 +20,19 @@ const correctModalName = (optionState, modalState) => {
   if(modalState.name === '' || modalState.name === undefined)
     return 'DEFAULT_NAME_ASSIGNED';
 
-  if(Object.keys(localStorage).includes(modalState.name))
+  if(JSON.parse(localStorage.names).includes(modalState.name))
       return 'EXISTS_REPLACE';
 
   return 'SAVE';
 }
 
-const SaveForm = ({optionState, modalState, openModal, closeOnClick, saveState, loadState, chagneName}) => {
+const SaveForm = ({optionState, modalState, 
+  openModal, closeOnClick, saveState, loadState, 
+  deleteState, chagneName}) => 
+{
   chagneName = chagneName.bind(this);
+  if(localStorage.names === undefined)
+    localStorage.names = [];
   return (
     <form>
       <SaveModal closeOnClick={closeOnClick} modalState={modalState}/>
@@ -27,25 +40,38 @@ const SaveForm = ({optionState, modalState, openModal, closeOnClick, saveState, 
       <EmptyCancleModal closeOnClick={closeOnClick} modalState={modalState}/>
       <LoadConfirmModal
         loadState = {(name) => {
-          loadState(JSON.parse(localStorage[name]));
-          closeOnClick();
+          GetResultByName(name, (state) => {
+            loadState(state);
+            closeOnClick();
+          });
         }}
         closeOnClick={closeOnClick} 
         modalState={modalState}
       />
       <DefaultNameModal 
         saveOnClick={(name) => {
-          chagneName(name);
-          saveState(modalState.name);
+          saveState(name);
           openModal('SAVE');
         }}
-        closeOnClick={closeOnClick} 
+        closeOnClick={() => {
+          chagneName('');
+          closeOnClick();
+        }} 
         modalState={modalState}
       />
       <ExistsReplaceModal 
         saveOnClick={(name) => {
           saveState(modalState.name);
           openModal('SAVE');
+        }}
+        closeOnClick={closeOnClick} 
+        modalState={modalState}
+      />
+      <DeleteModal
+        deleteOnClick={(name)=> {
+          deleteState(name);
+          chagneName('');
+          closeOnClick();
         }}
         closeOnClick={closeOnClick} 
         modalState={modalState}
@@ -66,25 +92,41 @@ const SaveForm = ({optionState, modalState, openModal, closeOnClick, saveState, 
             title="Saved Results"
           >
             {
-              Object.keys(localStorage).length !== 0?
-              Object.keys(localStorage).map(name => {
+              (JSON.parse(localStorage.names).length !== 0?
+                JSON.parse(localStorage.names).map(name => {
                   return (<MenuItem key={name} onClick={()=>{chagneName(name)}}>{name}</MenuItem>);
-                }) : <MenuItem key="deafult">no results yet</MenuItem>
+              }) : <MenuItem key="deafult">no results yet</MenuItem>)
             }
           </DropdownButton>
         </InputGroup>
       </FormGroup>
       <Button onClick={()=>{
-        if(localStorage[modalState.name])
-          openModal('LOAD');
+        if(JSON.parse(localStorage.names).includes(modalState.name))
+          openModal('DELETE');
         else
+          openModal('NOT_EXISTS');
+      }}
+        disabled = {modalState.name === '' 
+          || modalState.name === undefined}
+        bsStyle='danger'
+      >Delete</Button>
+      <Button onClick={()=>{
+        if(Array.isArray(JSON.parse(localStorage.names))){
+          if(JSON.parse(localStorage.names).includes(modalState.name))
+            openModal('LOAD');
+          else
+            openModal('NOT_EXISTS');
+        } else
           openModal('NOT_EXISTS');
       }}>Load</Button>
       <Button onClick={()=>{
         if(correctModalName(optionState, modalState) === 'SAVE') {
-          console.log("!!!!");
           saveState(modalState.name);
           openModal('SAVE');
+        } else if(correctModalName(optionState, modalState) === 'DEFAULT_NAME_ASSIGNED') {
+          var d = new Date();
+          chagneName(String(d.getTime()));
+          openModal('DEFAULT_NAME_ASSIGNED');
         } else openModal(correctModalName(optionState, modalState));
       }}>Save</Button>
     </form>
@@ -97,6 +139,7 @@ SaveForm.proptypes = {
   openModal: PropTypes.func,
   closeOnClick: PropTypes.func,
   saveState: PropTypes.func,
+  deleteState: PropTypes.func,
   loadState: PropTypes.func,
   chagneName: PropTypes.func
 }

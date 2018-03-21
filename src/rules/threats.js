@@ -14,7 +14,6 @@ const objAllIncludes = (status, reqObj) => {
   for(var i=0; i<reqs.length; i++) {
     if(Array.isArray(status[reqs[i][0]]) && Array.isArray(reqs[i][1])) {
       for(var j=0; j<reqs[i][1].length; j++) {
-        console.log(status[reqs[i][0]].includes(reqs[i][1][j]))
         if(!(status[reqs[i][0]].includes(reqs[i][1][j]))) return false;
       }
     } else return false;
@@ -44,7 +43,6 @@ export const IAL_THREATS = [
       mitigation(
         'CSP validates personal details in the evidence with the issuer or other authoritative source.',
         (status) => {
-          console.log('validates called');
           var requirements = getRequirementObject(status, IAL_REQ_GROUP);
           var x = 0;
           if(Array.isArray(status['500-1']))

@@ -44,6 +44,7 @@ export const handleStartOverOnClick = (id) => {
 
 export const LOAD_STATE = 'LOAD_STATE';
 export const SAVE_STATE = 'SAVE_STATE';
+export const DELETE_STATE = 'DELETE_STATE';
 
 export const handleLoadState = (nextState) => {
 	return {
@@ -55,6 +56,13 @@ export const handleLoadState = (nextState) => {
 export const handleSaveState = (name) => {
 	return {
 		type: SAVE_STATE,
+		name
+	}
+}
+
+export const deleteSaveState = (name) => {
+	return {
+		type: DELETE_STATE,
 		name
 	}
 }

@@ -1,5 +1,7 @@
-import { OPTION_ON_CLICK , MULTI_ON_CLICK , LOAD_STATE, SAVE_STATE } from '../actions'
+import { OPTION_ON_CLICK , MULTI_ON_CLICK , 
+  LOAD_STATE, SAVE_STATE, DELETE_STATE } from '../actions'
 import { IAL_EVIDENCE_CONDITION } from '../rules/requirements'
+import { SaveResultToDB, DeleteResultFromDB } from '../FirebaseActions';
 
 const spliceAndReturn = (arr, num, len) => {
   arr.splice(num, len);
@@ -75,7 +77,18 @@ const optionStatus = (state = {}, action) => {
         action.name = d.getTime();
       }
       
-      localStorage.setItem(String(action.name), JSON.stringify(state));
+      SaveResultToDB(action.name, state);
+      return state;
+
+    case DELETE_STATE:
+      if(!localStorage.names)
+        return state;
+      if(!Array.isArray(JSON.parse(localStorage.names)))
+        return state;
+      if(!JSON.parse(localStorage.names).includes(action.name))
+        return state;
+
+      DeleteResultFromDB(action.name);
       return state;
     default:
       return state

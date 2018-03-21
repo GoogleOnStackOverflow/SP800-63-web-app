@@ -1,7 +1,6 @@
 import { OPEN_MODAL, CLOSE_MODAL , SET_CURRENT_NAME } from '../actions'
 
 const modalStatus = (state = {}, action) => {
-  console.log(state);
   switch (action.type) {
     case OPEN_MODAL:
       return {

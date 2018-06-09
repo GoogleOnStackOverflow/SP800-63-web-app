@@ -43,7 +43,7 @@ export const DeleteModal = ({modalState, closeOnClick, deleteOnClick}) =>  {
       </Modal.Header>
       <Modal.Body>
         <p>Are you sure to delete the result {getCurrentName(modalState)}?</p>
-        <strong><p>This action is not revertable</p></strong>
+        <strong><p>This action is not revertible</p></strong>
       </Modal.Body>
       <Modal.Footer>
           <Button onClick={closeOnClick}>Cancle</Button>
